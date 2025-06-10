@@ -4,6 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+    sudo \
     curl \
     gnupg \
     wget \
@@ -26,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     libxdamage1 \
     libxrandr2 \
     xdg-utils \
+    sudo apt-get install xvfb \
     --no-install-recommends
 
 # Install Chrome
