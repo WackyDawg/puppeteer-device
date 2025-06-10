@@ -2,11 +2,6 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Manually install libssl1.1
-RUN wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.1/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb \
-  && dpkg -i libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb \
-  && rm libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
-
 # Install all other dependencies
 RUN apt-get update && apt-get install -y \
   curl gnupg ca-certificates \
@@ -23,6 +18,11 @@ RUN apt-get update && apt-get install -y \
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
   && apt-get update && apt-get install -y ./google-chrome-stable_current_amd64.deb \
   && rm google-chrome-stable_current_amd64.deb
+
+# Manually install libssl1.1
+RUN wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.1/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb \
+  && dpkg -i libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb \
+  && rm libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
 
 # Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
