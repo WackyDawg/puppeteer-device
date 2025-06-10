@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -20,9 +20,10 @@ RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd6
   && rm google-chrome-stable_current_amd64.deb
 
 # Manually install libssl1.1
-RUN wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.1/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb \
-  && dpkg -i libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb \
-  && rm libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
+RUN wget http://archive.ubuntu.com/ubuntu/pool/universe/o/openssl1.1/libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb \
+  && dpkg -i libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb \
+  && rm libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+
 
 # Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \

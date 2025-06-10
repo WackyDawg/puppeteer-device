@@ -244,7 +244,7 @@ async function main() {
       setupDiscordHandlers(discordClient, page);
 
       // Initial navigation
-      await page.goto("https://browserscan.net", {
+      await page.goto("https://ip-scan.browserscan.net/sys/config/ip/get-visitor-ip", {
         waitUntil: "networkidle0",
         timeout: 0,
       });
