@@ -1,0 +1,10 @@
+node_modules/
+browser
+.env
+.env.*
+.env.local
+.env.development.local
+webhook.js
+test.pdf
+profile.json
+bot.js
