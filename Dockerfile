@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y \
     libxdamage1 \
     libxrandr2 \
     xdg-utils \
-    sudo apt-get install xvfb \
+    xvfb \  
     --no-install-recommends
 
 # Install Chrome
@@ -45,4 +45,5 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
-CMD ["node", "device.js"]
+# Start Xvfb then run your script
+CMD ["sh", "-c", "Xvfb :99 -screen 0 1280x720x24 & export DISPLAY=:99 && node device.js"]
