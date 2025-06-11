@@ -158,6 +158,20 @@ async function handleGoto(message, page, url) {
   await page.bringToFront();
   await page.goto(url, { waitUntil: "networkidle2", timeout: 0 });
   await message.reply(`✅ Navigated to ${url}`);
+  await delay(3000)
+  try {
+    const acceptSelector = 'button[data-a-target="consent-banner-accept"]';
+  
+    const bannerVisible = await page.$(acceptSelector);
+    if (bannerVisible) {
+      await page.waitForSelector(acceptSelector, { timeout: 5000 });
+      await page.click(acceptSelector);
+      console.log("✅ Clicked cookie consent 'Accept' button.");
+      await delay(1000);
+    }
+  } catch (err) {
+    console.warn("⚠️ Cookie banner not handled:", err.message);
+  }
 }
 
 async function handleScreenshot(page) {
