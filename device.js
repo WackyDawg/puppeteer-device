@@ -221,7 +221,21 @@ async function handleTwitchStream(message, page, url) {
 
   await page.goto(url, { waitUntil: "networkidle0", timeout: 0 });
   await message.reply(`✅ Navigated to livestream ${url}`);
+
+  try {
+    const acceptSelector = 'button[data-a-target="consent-banner-accept"]';
   
+    const bannerVisible = await page.$(acceptSelector);
+    if (bannerVisible) {
+      await page.waitForSelector(acceptSelector, { timeout: 5000 });
+      await page.click(acceptSelector);
+      console.log("✅ Clicked cookie consent 'Accept' button.");
+      await delay(1000);
+    }
+  } catch (err) {
+    console.warn("⚠️ Cookie banner not handled:", err.message);
+  }
+  await delay(5000);
   await page.evaluate(() => {
     localStorage.setItem("mature", "true");
     localStorage.setItem("video-muted", '{"default":false}');
