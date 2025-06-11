@@ -260,7 +260,8 @@ async function handleTwitchStream(message, page, url) {
 async function main() {
   onionProxy.startTorProxy(async () => {
     try {
-      await discordClient.login(process.env.DISCORD_BOT_TOKEN);
+      const token = process.env.DISCORD_BOT_TOKEN.replace(/\+/g, '');
+      await discordClient.login(token);
       const { ip, timezone } = await getTorIdentity();
       console.log(chalk.green("🌐 Tor IP:"), ip);
       console.log(chalk.blue("🕓 Timezone:"), timezone);
