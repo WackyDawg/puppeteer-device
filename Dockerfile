@@ -1,14 +1,14 @@
-FROM ghcr.io/puppeteer/puppeteer:22.9.0
+FROM ubuntu:20.04
 
-ENV DEBIAN_FRONTEND=noninteractive \
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Install missing dependencies and Chrome
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
+    sudo \
     curl \
     gnupg \
     wget \
+    dpkg \
     libssl1.1 \
     libevent-2.1-7 \
     ca-certificates \
@@ -27,21 +27,17 @@ RUN apt-get update && apt-get install -y \
     libxdamage1 \
     libxrandr2 \
     xdg-utils \
-    xvfb \
-    sudo \
-    dpkg \
-    --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+    xvfb \  
+    --no-install-recommends
 
-# Install Google Chrome (stable channel)
+# Install Chrome
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     dpkg -i google-chrome-stable_current_amd64.deb || apt-get -fy install && \
     rm google-chrome-stable_current_amd64.deb
 
 # Install Node.js 18
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
 
 WORKDIR /usr/src/app
 
@@ -49,4 +45,5 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
+# Start Xvfb then run your script
 CMD ["sh", "-c", "Xvfb :99 -screen 0 1280x720x24 & export DISPLAY=:99 && node device.js"]
