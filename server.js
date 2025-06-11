@@ -6,7 +6,7 @@ import fs from "fs/promises";
 
 const app = express();
 const upload = multer({ dest: "public/" });
-const PORT = 4000;
+const PORT = 7860;
 
 let botProcess = null;
 
