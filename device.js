@@ -156,7 +156,7 @@ async function handleGoto(message, page, url) {
   if (!url) return message.reply("⚠️ Please provide a URL");
   
   await page.bringToFront();
-  await page.goto(url, { waitUntil: "networkidle0", timeout: 0 });
+  await page.goto(url, { waitUntil: "networkidle2", timeout: 0 });
   await message.reply(`✅ Navigated to ${url}`);
 }
 
