@@ -80,7 +80,7 @@ async function getTorIdentity() {
 async function launchBrowser(timezone) {
   const { browser } = await connect({
     args: CONFIG.BROWSER_ARGS,
-    headless: false,
+    headless: true,
     turnstile: true,
   });
 
