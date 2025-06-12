@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  twitch-bot-1:
+    build: .
+    container_name: twitch-bot-1
+  twitch-bot-2:
+    build: .
+    container_name: twitch-bot-2
+  twitch-bot-3:
+    build: .
+    container_name: twitch-bot-3
