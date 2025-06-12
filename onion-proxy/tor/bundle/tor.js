@@ -34,7 +34,7 @@ module.exports = class TorRunner extends EventEmitter {
     }
 
     _loadLinux() {
-        // fs.chmodSync(LINUX_PATH, 0o754);
+        fs.chmodSync(LINUX_PATH, 0o754);
         this._filePath = LINUX_PATH;
     }
 
