@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 
 services:
   twitch-bot-1:
@@ -10,3 +10,9 @@ services:
   twitch-bot-3:
     build: .
     container_name: twitch-bot-3
+  twitch-bot-4:
+    build: .
+    container_name: twitch-bot-4
+  twitch-bot-5:
+    build: .
+    container_name: twitch-bot-5
